@@ -1,10 +1,12 @@
 import socket
 import cv2
+import numpy
 import datetime
 
 def recvall(sock, count):
     buf = b''
-    while count:x
+    while count:
+        newbuf = sock.recv(count)
         if not newbuf: return None
         buf += newbuf
         count -= len(newbuf)
@@ -27,6 +29,7 @@ while data != '':
 
     decimg=cv2.imdecode(data,1)
     cv2.imshow('SERVER', decimg)
+    cv2.moveWindow("SERVER",-15,-23)
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 s.close()
