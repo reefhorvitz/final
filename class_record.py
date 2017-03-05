@@ -2,6 +2,9 @@ import cv2
 import socket
 import numpy
 import time
+import datetime
+import multiprocessing
+
 class Sock():
     def __init__(self,ADD):
         #Socket vars
@@ -32,8 +35,37 @@ class Sock():
                 break
             self.Send_Video()
 
+
+    def recvall(self,sock, count):
+        buf = b''
+        while count:
+            newbuf = sock.recv(count)
+            if not newbuf: return None
+            buf += newbuf
+            count -= len(newbuf)
+        return buf
+
+
+    def Recv_Data(self):
+        data = 1
+        while data != '':
+            length = self.recvall(self.sock, 16)
+            stringData = self.recvall(self.sock, int(length))
+            data = numpy.fromstring(stringData, dtype='uint8')
+            print datetime.datetime.now()
+
+            decimg=cv2.imdecode(data,1)
+            cv2.imshow('SERVER', decimg)
+            cv2.moveWindow("SERVER",-15,-23)
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                break
+        self.sock.close()
+
     def Main(self):
-        self.Get_Self_Img()
+
+        SendProc = multiprocessing.Process(target=self.Get_Self_Img()).run()
+        RecvProc = multiprocessing.Process(target=self.Recv_Data()).run()
+
         self.sock.close()
         # When everything done, release the capture
         self.capture.release()
