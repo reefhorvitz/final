@@ -13,7 +13,6 @@ capture = cv2.VideoCapture(0)
 while 1:
 #capture video
     ret, frame = capture.read()
-
     cv2.imshow('frame',frame)
     cv2.moveWindow("frame",-15,528)
     if cv2.waitKey(1) & 0xFF == ord('q'):

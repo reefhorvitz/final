@@ -8,7 +8,6 @@ class Sock():
         self.sock = socket.socket()
         self.sock.connect(ADD)
         #Video vars
-        self.capture = cv2.VideoCapture(0)
         self.frame = None
 
     def Send_Video(self):
@@ -23,10 +22,10 @@ class Sock():
 
 
     def Get_Self_Img(self):
-        self.capture = cv2.VideoCapture(0)
+        capture = cv2.VideoCapture(0)
         while 1:
         #capture video
-            ret, self.frame = self.capture.read()
+            ret, self.frame = capture.read()
             cv2.imshow('frame',self.frame)
             cv2.moveWindow("frame",-15,528)
             if cv2.waitKey(1) & 0xFF == ord('q'):
