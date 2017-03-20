@@ -2,7 +2,7 @@ import cv2
 import socket
 import numpy
 import time
-TCP_IP = '127.0.0.1'
+TCP_IP = "192.168.30.38"
 TCP_PORT = 5001
 
 sock = socket.socket()

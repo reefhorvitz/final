@@ -8,7 +8,7 @@ import multiprocessing
 class Sock():
     def __init__(self):
         PORT = 5001
-        IP = "127.0.0.1"
+        IP = "0.0.0.0"
         #Socket vars
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.bind((IP,PORT))
@@ -74,4 +74,3 @@ class Sock():
         # When everything done, release the capture
         self.capture.release()
         cv2.destroyAllWindows()
-Sock.Main()

@@ -63,7 +63,7 @@ class Sock():
 
     def Main(self):
 
-        SendProc = multiprocessing.Process(target=self.Get_Self_Img()).run()
+        SelfProc = multiprocessing.Process(target=self.Get_Self_Img()).run()
         RecvProc = multiprocessing.Process(target=self.Recv_Data()).run()
 
         self.sock.close()
