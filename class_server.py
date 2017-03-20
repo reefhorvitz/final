@@ -65,12 +65,17 @@ class Sock():
                 break
         self.sock.close()
 
+    def Exit(self,send,recv):
+        while True:
+            if not(send.is_alive() or recv.is_alive()):
+                self.s.close()
+                self.sock.close()
+                # When everything done, release the capture
+                self.capture.release()
+                cv2.destroyAllWindows()
     def Main(self):
 
-        SendProc = multiprocessing.Process(target=self.Get_Self_Img()).run()
+        SelfProc = multiprocessing.Process(target=self.Get_Self_Img()).run()
         RecvProc = multiprocessing.Process(target=self.Recv_Data()).run()
 
-        self.sock.close()
-        # When everything done, release the capture
-        self.capture.release()
-        cv2.destroyAllWindows()
+        self.Exit(SelfProc,RecvProc)
