@@ -1,6 +1,6 @@
-import  class_client
+import  Sock
 PORT = 5001
 IP = "127.0.0.1"
 ADD = (IP,PORT)
-sock = class_client.Sock(ADD)
+sock = Sock.Client(ADD)
 sock.Main()

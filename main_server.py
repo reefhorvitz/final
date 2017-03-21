@@ -1,3 +1,3 @@
-import  class_server
-sock = class_server.Sock()
+import  Sock
+sock = Sock.Server()
 sock.Main()
