@@ -9,10 +9,11 @@ class Server():
     def __init__(self):
         PORT = 5001
         IP = "0.0.0.0"
+        ADD = (IP,PORT)
         #Socket vars
-        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        s.bind((IP,PORT))
-        s.listen(True)
+        s = socket.socket()
+        s.bind(ADD)
+        s.listen(1)
         self.sock, addr = s.accept()
         #Video vars
         self.frame = None
@@ -75,10 +76,11 @@ class Server():
                 cv2.destroyAllWindows()
     def Main(self):
 
-        SelfProc = multiprocessing.Process(target=self.Get_Self_Img()).run()
-        RecvProc = multiprocessing.Process(target=self.Recv_Data()).run()
-
-        self.Exit(SelfProc,RecvProc)
+        SelfProc = multiprocessing.Process(target=self.Get_Self_Img())
+        SelfProc.run()
+        RecvProc = multiprocessing.Process(target=self.Recv_Data())
+        RecvProc.run()
+        self.Exit(SelfProc, RecvProc)
 
 class Client():
     def __init__(self,ADD):
@@ -147,7 +149,8 @@ class Client():
 
     def Main(self):
 
-        SelfProc = multiprocessing.Process(target=self.Get_Self_Img()).run()
-        RecvProc = multiprocessing.Process(target=self.Recv_Data()).run()
-
-        self.Exit(SelfProc,RecvProc)
+        SelfProc = multiprocessing.Process(target=self.Get_Self_Img())
+        SelfProc.run()
+        RecvProc = multiprocessing.Process(target=self.Recv_Data())
+        RecvProc.run()
+        self.Exit(SelfProc, RecvProc)
