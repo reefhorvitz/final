@@ -68,15 +68,16 @@ class Server():
 			ret, self.frame = self.capture.read()
 			try:
 				cv2.imshow("Server_Self", self.frame)
-				cv2.moveWindow("Server_Self", -15, -23)
+				cv2.moveWindow("Server_Self", -15, 528)
 			except:
-				pass
+				self.Exit()
 			if cv2.waitKey(1) & 0xFF == ord('q'):
 				# When everything done, release the capture
 				self.capture.release()
 				cv2.destroyAllWindows()
 				break
 			self.Send_Video()
+
 
 	def Exit(self, send, recv):
 		while True:
@@ -91,11 +92,11 @@ class Server():
 
 	def Main(self):
 
-		#SelfProc = multiprocessing.Process(target=self.Get_Self_Img())
-		#SelfProc.run()
+		SelfProc = multiprocessing.Process(target=self.Get_Self_Img())
+		SelfProc.run()
 		RecvProc = multiprocessing.Process(target=self.Recv_Data())
 		RecvProc.run()
-		#self.Exit(SelfProc, RecvProc)
+		self.Exit(SelfProc, RecvProc)
 
 
 
