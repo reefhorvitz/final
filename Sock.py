@@ -19,12 +19,19 @@ class Server():
 		#Video vars
 		self.frame = None
 		self.capture = None
+		self.sem = multiprocessing.Semaphore(1)
 
+	def is_available(self):
+		while self.sem.get_value()!=1:
+			time.sleep(0.005)
+		return
 
 	def recvall(self, count):
 		buf = b''
 		while count:
-			newbuf = self.sock.recv(count)
+			self.is_available()
+			with self.sem:
+				newbuf = self.sock.recv(count)
 			if not newbuf: return None
 			buf += newbuf
 			count -= len(newbuf)
@@ -37,8 +44,10 @@ class Server():
 		result, imgencode = cv2.imencode('.jpg', self.frame, encode_param)
 		data = numpy.array(imgencode)
 		stringData = data.tostring()
-		self.sock.send(str(len(stringData)).ljust(16))
-		self.sock.send(stringData)
+		self.is_available()
+		with self.sem:
+			self.sock.send(str(len(stringData)).ljust(16))
+			self.sock.send(stringData)
 		time.sleep(0.1)
 
 
@@ -108,15 +117,23 @@ class Client():
 		#Video vars
 		self.frame = None
 		self.capture = None
+		self.sem = multiprocessing.Semaphore(1)
+
+
+	def is_available(self):
+		while self.sem.get_value()!=1:
+			time.sleep(0.005)
+		return
 
 	def Send_Video(self):
-
 		encode_param = [int(cv2.IMWRITE_JPEG_QUALITY), 90]
 		result, imgencode = cv2.imencode('.jpg', self.frame, encode_param)
 		data = numpy.array(imgencode)
 		stringData = data.tostring()
-		self.sock.send(str(len(stringData)).ljust(16))
-		self.sock.send(stringData)
+		self.is_available()
+		with self.sem:
+			self.sock.send(str(len(stringData)).ljust(16))
+			self.sock.send(stringData)
 		time.sleep(0.1)
 
 
@@ -140,7 +157,9 @@ class Client():
 	def recvall(self, count):
 		buf = b''
 		while count:
-			newbuf = self.sock.recv(count)
+			self.is_available()
+			with self.sem:
+				newbuf = self.sock.recv(count)
 			if not newbuf: return None
 			buf += newbuf
 			count -= len(newbuf)
