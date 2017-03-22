@@ -4,7 +4,7 @@ import numpy
 import time
 import datetime
 import multiprocessing
-
+import sys
 
 class Server():
 	def __init__(self):
@@ -49,7 +49,6 @@ class Server():
 			stringData = self.recvall(int(length))
 			data = numpy.fromstring(stringData, dtype='uint8')
 			print datetime.datetime.now()
-
 			decimg = cv2.imdecode(data, 1)
 			cv2.imshow('Server_Other', decimg)
 			cv2.moveWindow("Server_Other", -15, -23)
@@ -68,17 +67,21 @@ class Server():
 			except:
 				pass
 			if cv2.waitKey(1) & 0xFF == ord('q'):
+				# When everything done, release the capture
+				self.capture.release()
+				cv2.destroyAllWindows()
 				break
 			self.Send_Video()
 
 	def Exit(self, send, recv):
 		while True:
-			if not (send.is_alive() or recv.is_alive()):
+			if not (send.is_alive() and recv.is_alive()):   #if one of them has been terminated
+				send.terminate()
+				recv.terminate()
 				self.sock.close()
 				self.s.close()
-				# When everything done, release the capture
-				self.capture.release()
-				cv2.destroyAllWindows()
+
+				sys.exit(0)
 
 
 	def Main(self):
@@ -148,16 +151,19 @@ class Client():
 			cv2.imshow('Client_Other', decimg)
 			cv2.moveWindow("Client_Other", -15, -23)
 			if cv2.waitKey(1) & 0xFF == ord('q'):
+				# When everything done, release the capture
+				self.capture.release()
+				cv2.destroyAllWindows()
 				break
 		self.sock.close()
 
 	def Exit(self, send, recv):
 		while True:
-			if not (send.is_alive() or recv.is_alive()):
+			if not (send.is_alive() and recv.is_alive()):   #if one of them has been terminated
+				send.terminate()
+				recv.terminate()
 				self.sock.close()
-				# When everything done, release the capture
-				self.capture.release()
-				cv2.destroyAllWindows()
+				sys.exit(0)
 
 	def Main(self):
 
