@@ -95,7 +95,6 @@ class Server():
 				recv.terminate()
 				self.sock.close()
 				self.s.close()
-
 				sys.exit(0)
 
 
