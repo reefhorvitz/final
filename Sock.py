@@ -50,9 +50,14 @@ class Server():
 			data = numpy.fromstring(stringData, dtype='uint8')
 			print datetime.datetime.now()
 			decimg = cv2.imdecode(data, 1)
-			cv2.imshow('Server_Other', decimg)
-			cv2.moveWindow("Server_Other", -15, -23)
+			try:
+				cv2.imshow('Server_Other', decimg)
+				cv2.moveWindow("Server_Other", -15, -23)
+			except:
+				self.Exit()
 			if cv2.waitKey(1) & 0xFF == ord('q'):
+				self.capture.release()
+				cv2.destroyAllWindows()
 				break
 		self.sock.close()
 
@@ -86,11 +91,11 @@ class Server():
 
 	def Main(self):
 
-		SelfProc = multiprocessing.Process(target=self.Get_Self_Img())
-		SelfProc.run()
+		#SelfProc = multiprocessing.Process(target=self.Get_Self_Img())
+		#SelfProc.run()
 		RecvProc = multiprocessing.Process(target=self.Recv_Data())
 		RecvProc.run()
-		self.Exit(SelfProc, RecvProc)
+		#self.Exit(SelfProc, RecvProc)
 
 
 
@@ -123,8 +128,10 @@ class Client():
 				cv2.imshow('Client_Self', self.frame)
 				cv2.moveWindow("Client_Self", -15, 528)
 			except:
-				pass
+				self.Exit()
 			if cv2.waitKey(1) & 0xFF == ord('q'):
+				self.capture.release()
+				cv2.destroyAllWindows()
 				break
 			self.Send_Video()
 
