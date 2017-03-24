@@ -8,13 +8,16 @@ TCP_PORT = 5001
 sock = socket.socket()
 sock.connect((TCP_IP, TCP_PORT))
 
-capture = cv2.VideoCapture(0)
+capture = cv2.VideoCapture()
 # for i in range(0, 30):
 while 1:
 #capture video
     ret, frame = capture.read()
-    cv2.imshow('frame',frame)
-    cv2.moveWindow("frame",-15,528)
+    try:
+        cv2.imshow('frame',frame)
+        cv2.moveWindow("frame",-15,528)
+    except:
+        ret, frame = capture.read()
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 

@@ -5,15 +5,12 @@ import multiprocessing
 def Sock_Connect():
 	PORT1 = 5001
 	PORT2 = 5002
-	IP = "192.168.30.31"
+	IP = "127.0.0.1"
 	s1 = socket.socket()
 	s2 = socket.socket()
 	s1.connect((IP,PORT1))
 	s2.connect((IP,PORT2))
-	send_sock, addr = s1.accept()
-	recv_sock, addr = s2.accept()
-	return (send_sock,recv_sock)
-
+	return (s1,s2)
 send, recv = Sock_Connect()
 base = Only_Video.Video()
 

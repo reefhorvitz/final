@@ -16,7 +16,7 @@ class Video:
 				cv2.imshow("Server_Self", self.frame)
 				cv2.moveWindow("Server_Self", -15, 528)
 			except:
-				self.Exit()
+				return
 			if cv2.waitKey(1) & 0xFF == ord('q'):
 				# When everything done, release the capture
 				self.capture.release()
@@ -55,7 +55,7 @@ class Video:
 				cv2.imshow('Server_Other', decimg)
 				cv2.moveWindow("Server_Other", -15, -23)
 			except:
-				self.Exit()
+				return
 			if cv2.waitKey(1) & 0xFF == ord('q'):
 				self.capture.release()
 				cv2.destroyAllWindows()
