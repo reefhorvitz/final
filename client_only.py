@@ -10,8 +10,8 @@ def Sock_Connect():
 	IP = "192.168.30.20"
 	s1 = socket.socket()
 	s2 = socket.socket()
-	s1.connect((IP,PORT1))
-	s2.connect((IP,PORT2))
+	s1.connect((IP, PORT1))
+	s2.connect((IP, PORT2))
 	return (s1,s2)
 send, recv = Sock_Connect()
 base = Only_Video.Video()

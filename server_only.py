@@ -5,18 +5,22 @@ import sys
 import time
 
 def Sock_Connect():
-	PORT1 = 5001
-	PORT2 = 5002
+	PORT1 = 5002
+	PORT2 = 5001
+
 	IP = "0.0.0.0"
 	#Socket vars
 	s1 = socket.socket()
 	s2 = socket.socket()
+
 	s1.bind((IP,PORT1))
 	s2.bind((IP,PORT2))
+
 	s1.listen(1)
 	s2.listen(1)
-	recv_sock, addr = s1.accept()
-	send_sock, addr = s2.accept()
+
+	send_sock, addr = s1.accept()
+	recv_sock, addr = s2.accept()
 	return (send_sock,recv_sock)
 
 def Exit(P1,P2,send,recv):
