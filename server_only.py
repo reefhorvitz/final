@@ -1,6 +1,6 @@
 import socket
 import Only_Video
-import multiprocessing
+import threading
 import sys
 import time
 
@@ -36,8 +36,8 @@ def Exit(P1,P2,send,recv):
 send, recv = Sock_Connect()
 base = Only_Video.Video()
 
-Proc_Send = multiprocessing.Process(target=base.Get_Self_Img, args=(send,))
-Proc_Recv = multiprocessing.Process(target=base.Recv_Data, args=(recv,))
-Proc_Send.run()
-Proc_Recv.run()
-Exit(Proc_Recv, Proc_Send, send, recv)
+Send_Thread = threading.Thread(target=base.Get_Self_Img, args=(send,))
+Recv_Thread = threading.Thread(target=base.Recv_Data, args=(recv,))
+Send_Thread.run()
+Recv_Thread.run()
+Exit(Recv_Thread, Send_Thread, send, recv)

@@ -25,7 +25,7 @@ class Video:
 				break
 			self.Send_Video(sock)
 
-	def Send_Video(self,sock):
+	def Send_Video(self, sock):
 
 		encode_param = [int(cv2.IMWRITE_JPEG_QUALITY), 90]
 		result, imgencode = cv2.imencode('.jpg', self.frame, encode_param)
