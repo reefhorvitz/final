@@ -64,7 +64,7 @@ audio2 = sound_class.OnlyAudio(recv_aud)
 Send_Vid_Thread = threading.Thread(target=base.Get_Self_Img, args=(send_vid,))
 Recv_Vid_Thread = threading.Thread(target=base.Recv_Data, args=(recv_vid,))
 Send_Aud_Thread = threading.Thread(target=audio.Send_Sound)
-Recv_Aud_Thread = threading.Thread(target=audio2.Get_Sound())
+Recv_Aud_Thread = threading.Thread(target=audio2.Get_Sound)
 
 Send_Vid_Thread.start()
 Recv_Vid_Thread.start()
