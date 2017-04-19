@@ -9,6 +9,7 @@ class OnlyAudio:
 		self.CHANNELS = 1
 		self.RATE = 44100
 		self.RECORD_SECONDS = 40
+		self.WIDTH = 2
 		self.s = s
 		self.p = pyaudio.PyAudio()
 
