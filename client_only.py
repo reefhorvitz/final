@@ -11,7 +11,7 @@ def Sock_Connect():
 	PORT3 = 5003
 	PORT4 = 5004
 
-	IP = "192.168.30.19"
+	IP = "192.168.30.29"
 
 	s1 = socket.socket()
 	s2 = socket.socket()
