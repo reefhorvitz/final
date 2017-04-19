@@ -35,6 +35,11 @@ class OnlyAudio:
 		print("*closed")
 
 	def Get_Sound(self):
+		self.stream = self.p.open(format=self.p.get_format_from_width(self.WIDTH),
+                channels=self.CHANNELS,
+                rate=self.RATE,
+                output=True,
+                frames_per_buffer=self.CHUNK)
 		data =self.s.recv(1024)
 		i=1
 		frames = []

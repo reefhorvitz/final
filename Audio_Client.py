@@ -9,7 +9,7 @@ CHANNELS = 1
 RATE = 44100
 RECORD_SECONDS = 40
 
-HOST = ''    # The remote host
+HOST = '192.168.30.19'    # The remote host
 PORT = 50007              # The same port as used by the server
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
