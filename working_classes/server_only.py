@@ -23,13 +23,16 @@ def Sock_Connect():
 	s2 = socket.socket()
 	s3 = socket.socket()
 	s4 = socket.socket()
+	s5 = socket.socket()
+	s6 = socket.socket()
 
 	s1.bind((IP, PORT1))
 	s2.bind((IP, PORT2))
 	s3.bind((IP, PORT3))
 	s4.bind((IP, PORT4))
-	s5 = socket.socket()
-	s6 = socket.socket()
+	s5.bind((IP, PORT5))
+	s6.bind((IP, PORT6))
+
 
 	s1.listen(1)
 	s2.listen(1)
