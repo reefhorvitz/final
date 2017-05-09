@@ -1,13 +1,13 @@
 import socket
+import Tkinter
+
 class Chat():
-	def __init__(self,sock):
-		self.s = sock
 
-	def recv_msg(self):
+	def recv_msg(self,s):
 		while True:
-			print self.s.recv(1024)
+			print s.recv(1024)
 
-	def send_msg(self):
+	def send_msg(self,s):
 		while True:
 			data = raw_input()
-			self.s.send(data)
+			s.send(data)

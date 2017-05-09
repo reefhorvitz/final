@@ -10,10 +10,10 @@ import time
 def Sock_Connect():
 	PORT1 = 5002
 	PORT2 = 5001
-	PORT3 = 5003
-	PORT4 = 5004
-	PORT5 = 5005
-	PORT6 = 5006
+	PORT3 = 5004
+	PORT4 = 5003
+	PORT5 = 5006
+	PORT6 = 5005
 
 
 	IP = "0.0.0.0"
@@ -72,15 +72,15 @@ base = Only_Video.Video()
 audio = sound_class.OnlyAudio(send_aud)
 audio2 = sound_class.OnlyAudio(recv_aud)
 
-chat =  class_chat.Chat(send_chat)
-chat2 = class_chat.Chat(recv_chat)
+chat =  class_chat.Chat()
+
 
 Send_Vid_Thread = threading.Thread(target=base.Get_Self_Img, args=(send_vid,))
 Recv_Vid_Thread = threading.Thread(target=base.Recv_Data, args=(recv_vid,))
 Send_Aud_Thread = threading.Thread(target=audio.Send_Sound)
 Recv_Aud_Thread = threading.Thread(target=audio2.Get_Sound)
-Send_Chat_Thread = threading.Thread(target=chat.send_msg)
-Recv_Chat_Thread = threading.Thread(target=chat.recv_msg)
+Send_Chat_Thread = threading.Thread(target=chat.send_msg, args=(send_chat,))
+Recv_Chat_Thread = threading.Thread(target=chat.recv_msg, args=(recv_chat,))
 
 Send_Vid_Thread.start()
 Recv_Vid_Thread.start()

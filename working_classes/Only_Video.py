@@ -40,7 +40,7 @@ class Video:
 			time.sleep(0.1)
 		except:
 			self.flag = True
-			return 
+			return
 
 	def recvall(self, sock, count):
 		buf = b''
