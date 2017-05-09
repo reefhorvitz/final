@@ -97,4 +97,4 @@ Recv_Aud_Thread.start()
 Send_Chat_Thread.start()
 Recv_Chat_Thread.start()
 
-Exit(Send_Vid_Thread, Recv_Vid_Thread, Send_Aud_Thread, Recv_Aud_Thread, send_aud, recv_aud, send_vid, recv_vid, send_chat, recv_chat)
+Exit(Send_Vid_Thread, Recv_Vid_Thread, Send_Aud_Thread, Recv_Aud_Thread, Send_Chat_Thread, Recv_Chat_Thread, send_aud, recv_aud, send_vid, recv_vid, send_chat, recv_chat)
