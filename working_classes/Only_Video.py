@@ -8,6 +8,7 @@ class Video:
 		#Video vars
 		self.frame = None
 		self.capture = None
+		self.flag = False
 
 	def Get_Self_Img(self,sock):
 		self.capture = cv2.VideoCapture(0)
@@ -23,6 +24,7 @@ class Video:
 				self.capture.release()
 				cv2.destroyAllWindows()
 				sock.close()
+				self.flag = True
 				break
 			self.Send_Video(sock)
 
@@ -61,4 +63,4 @@ class Video:
 				self.capture.release()
 				cv2.destroyAllWindows()
 				sock.close()
-				sys.exit(0)
+				self.flag = True

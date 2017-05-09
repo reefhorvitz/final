@@ -51,17 +51,9 @@ def Sock_Connect():
 	return (send_vid, recv_vid, send_aud, recv_aud, send_chat, recv_chat)
 
 
-def Exit(P1,P2,P3,P4,P5,P6,s1,s2,s3,s4,s5,s6):
+def Exit(base,s1,s2,s3,s4,s5,s6):
 	while True:
-		if not(P1.is_alive() and P2.is_alive()):
-			#close proc
-			P1.join()
-			P2.join()
-			P3.join()
-			P4.join()
-			P5.join()
-			P6.join()
-
+		if base.flag:
 			#close sock
 			s1.close()
 			s2.close()
@@ -97,4 +89,4 @@ Recv_Aud_Thread.start()
 Send_Chat_Thread.start()
 Recv_Chat_Thread.start()
 
-Exit(Send_Vid_Thread, Recv_Vid_Thread, Send_Aud_Thread, Recv_Aud_Thread, Send_Chat_Thread, Recv_Chat_Thread, send_aud, recv_aud, send_vid, recv_vid, send_chat, recv_chat)
+Exit(base, send_aud, recv_aud, send_vid, recv_vid, send_chat, recv_chat)
