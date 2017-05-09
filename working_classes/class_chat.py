@@ -1,5 +1,5 @@
 import socket
-class chat():
+class Chat():
 	def __init__(self,sock):
 		self.s = sock
 
