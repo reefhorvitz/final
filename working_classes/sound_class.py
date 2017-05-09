@@ -22,13 +22,11 @@ class OnlyAudio:
 		                          input=True,
 		                          frames_per_buffer=self.CHUNK)
 		while True:
-			print("*recording")
 			frames = []
 			for i in range(0, int(self.RATE / self.CHUNK * self.RECORD_SECONDS)):
 				data = self.stream.read(self.CHUNK)
 				frames.append(data)
 				self.s.sendall(data)
-			print("*done recording")
 
 	def Exit(self):
 		self.stream.stop_stream()
@@ -44,12 +42,9 @@ class OnlyAudio:
 		                          output=True,
 		                          frames_per_buffer=self.CHUNK)
 		data = self.s.recv(1024)
-		i = 1
 		frames = []
 		while data != '':
 			self.stream.write(data)
 			data = self.s.recv(1024)
-			i = i + 1
-			print i
 			frames.append(data)
 		self.Exit()
