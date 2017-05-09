@@ -52,8 +52,8 @@ base = Only_Video.Video()
 
 audio = sound_class.OnlyAudio(send_aud)
 audio2 = sound_class.OnlyAudio(recv_aud)
-chat =  class_chat.Chat(send_chat)
-chat2 = class_chat.Chat(recv_chat)
+chat =  class_chat.Chat()
+
 
 
 Send_Vid_Thread = threading.Thread(target=base.Get_Self_Img,args=(send_vid,))
