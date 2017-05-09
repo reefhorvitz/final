@@ -1,59 +1,60 @@
-import socket
-import Only_Video
-import sound_class
-import class_chat
-import multiprocessing
-import sys
-import time
-
-def Sock_Connect():
-	PORT1 = 5001
-	PORT2 = 5002
-	PORT3 = 5003
-	PORT4 = 5004
-	PORT5 = 5005
-	PORT6 = 5006
-
-	IP = "192.168.30.29"
-
-	s1 = socket.socket()
-	s2 = socket.socket()
-	s3 = socket.socket()
-	s4 = socket.socket()
-	s5 = socket.socket()
-	s6 = socket.socket()
-
-	s1.connect((IP, PORT1))
-	s2.connect((IP, PORT2))
-	s3.connect((IP, PORT3))
-	s4.connect((IP, PORT4))
-	s5.connect((IP, PORT5))
-	s6.connect((IP, PORT6))
-
-	return (s1, s2, s3, s4, s5, s6)
-
-
-def Exit(P1,P2,P3,P4,P5,P6,s1,s2,s3,s4,s5,s6):
-	while True:
-		if not(P1.is_alive() and P2.is_alive()):
-			#close proc
-			P1.join()
-			P2.join()
-			P3.join()
-			P4.join()
-			P5.join()
-			P6.join()
-
-			#close sock
-			s1.close()
-			s2.close()
-			s3.close()
-			s4.close()
-			s5.close()
-			s6.close()
-			sys.exit(0)
-		time.sleep(0.5)
 if __name__ == "__main__":
+	import socket
+	import Only_Video
+	import sound_class
+	import class_chat
+	import multiprocessing
+	import sys
+	import time
+
+	def Sock_Connect():
+		PORT1 = 5001
+		PORT2 = 5002
+		PORT3 = 5003
+		PORT4 = 5004
+		PORT5 = 5005
+		PORT6 = 5006
+
+		IP = "192.168.30.29"
+
+		s1 = socket.socket()
+		s2 = socket.socket()
+		s3 = socket.socket()
+		s4 = socket.socket()
+		s5 = socket.socket()
+		s6 = socket.socket()
+
+		s1.connect((IP, PORT1))
+		s2.connect((IP, PORT2))
+		s3.connect((IP, PORT3))
+		s4.connect((IP, PORT4))
+		s5.connect((IP, PORT5))
+		s6.connect((IP, PORT6))
+
+		return (s1, s2, s3, s4, s5, s6)
+
+
+	def Exit(P1,P2,P3,P4,P5,P6,s1,s2,s3,s4,s5,s6):
+		while True:
+			if not(P1.is_alive() and P2.is_alive()):
+				#close proc
+				P1.join()
+				P2.join()
+				P3.join()
+				P4.join()
+				P5.join()
+				P6.join()
+
+				#close sock
+				s1.close()
+				s2.close()
+				s3.close()
+				s4.close()
+				s5.close()
+				s6.close()
+				sys.exit(0)
+			time.sleep(0.5)
+
 	#varaibles for sock and functions
 	send_vid, recv_vid, send_aud, recv_aud, send_chat, recv_chat = Sock_Connect()
 	base = Only_Video.Video()
