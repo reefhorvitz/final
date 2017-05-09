@@ -1,6 +1,7 @@
 import cv2
 import time
 import numpy
+import sys
 
 class Video:
 	def __init__(self):
@@ -59,5 +60,5 @@ class Video:
 			if cv2.waitKey(1) & 0xFF == ord('q'):
 				self.capture.release()
 				cv2.destroyAllWindows()
-				break
-		sock.close()
+				sock.close()
+				sys.exit(0)
