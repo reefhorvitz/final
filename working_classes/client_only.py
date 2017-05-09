@@ -11,7 +11,7 @@ def Sock_Connect():
 	PORT3 = 5003
 	PORT4 = 5004
 
-	IP = "192.168.30.19"
+	IP = "192.168.30.29"
 
 	s1 = socket.socket()
 	s2 = socket.socket()
@@ -61,4 +61,3 @@ Send_Aud_Thread.start()
 Recv_Aud_Thread.start()
 
 Exit(Send_Vid_Thread, Recv_Vid_Thread, Send_Aud_Thread, Recv_Aud_Thread, send_aud, recv_aud, send_vid, recv_vid)
-
