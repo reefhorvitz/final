@@ -30,14 +30,17 @@ class Video:
 			self.Send_Video(sock)
 
 	def Send_Video(self, sock):
-
-		encode_param = [int(cv2.IMWRITE_JPEG_QUALITY), 90]
-		result, imgencode = cv2.imencode('.jpg', self.frame, encode_param)
-		data = numpy.array(imgencode)
-		stringData = data.tostring()
-		sock.send(str(len(stringData)).ljust(16))
-		sock.send(stringData)
-		time.sleep(0.1)
+		try:
+			encode_param = [int(cv2.IMWRITE_JPEG_QUALITY), 90]
+			result, imgencode = cv2.imencode('.jpg', self.frame, encode_param)
+			data = numpy.array(imgencode)
+			stringData = data.tostring()
+			sock.send(str(len(stringData)).ljust(16))
+			sock.send(stringData)
+			time.sleep(0.1)
+		except:
+			self.flag = True
+			return 
 
 	def recvall(self, sock, count):
 		buf = b''
