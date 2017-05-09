@@ -11,8 +11,8 @@ class Video:
 	def Get_Self_Img(self,sock):
 		self.capture = cv2.VideoCapture(0)
 		while 1:
-			ret, self.frame = self.capture.read()
 			try:
+				ret, self.frame = self.capture.read()
 				cv2.imshow("Server_Self", self.frame)
 				cv2.moveWindow("Server_Self", -15, 528)
 			except:
@@ -47,11 +47,11 @@ class Video:
 	def Recv_Data(self,sock):
 		data = 1
 		while data != '':
-			length = self.recvall(sock, 16)
-			stringData = self.recvall(sock, int(length))
-			data = numpy.fromstring(stringData, dtype='uint8')
-			decimg = cv2.imdecode(data, 1)
 			try:
+				length = self.recvall(sock, 16)
+				stringData = self.recvall(sock, int(length))
+				data = numpy.fromstring(stringData, dtype='uint8')
+				decimg = cv2.imdecode(data, 1)
 				cv2.imshow('Server_Other', decimg)
 				cv2.moveWindow("Server_Other", -15, -23)
 			except:
