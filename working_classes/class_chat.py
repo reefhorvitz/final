@@ -1,5 +1,6 @@
 import socket
 from Tkinter import *
+import threading
 
 class Chat():
 
@@ -11,8 +12,7 @@ class Chat():
 		self.chattext.pack(side = TOP)
 		self.sendbutton = Button(self.root,text = "SEND" , command = self.pressed)
 		self.is_pressed = False
-		self.root.mainloop()
-
+		thread = threading.Thread(target=self.mainloop).start()
 	def pressed(self):
 		self.is_pressed = True
 
@@ -28,3 +28,6 @@ class Chat():
 			s.send(msg)
 			self.chattext.insert(END,"ME : "+msg)
 			self.is_pressed = False
+
+	def mainloop(self):
+		self.root.mainloop()
