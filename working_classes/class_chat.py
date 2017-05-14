@@ -24,7 +24,7 @@ class Chat():
 		thread = threading.Thread(target=self.mainloop)
 		thread.start()
 
-	def pressed(self):
+	def pressed(self,ret = None):
 		self.is_pressed = True
 
 	def recv_msg(self,s):
