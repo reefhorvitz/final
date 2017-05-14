@@ -13,7 +13,9 @@ class Chat():
 		self.sendbutton = Button(self.root,text = "SEND" , command = self.pressed)
 		self.sendbutton.pack(side = RIGHT)
 		self.is_pressed = False
-		thread = threading.Thread(target=self.mainloop).start()
+		thread = threading.Thread(target=self.mainloop)
+		thread.start()
+
 	def pressed(self):
 		self.is_pressed = True
 
