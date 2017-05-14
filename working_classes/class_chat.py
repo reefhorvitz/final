@@ -6,6 +6,7 @@ class Chat():
 
 	def __init__(self):
 		self.root = Tk()
+		self.root.attributes("-fullscreen", True)
 		self.myentery = Entry(self.root)
 		self.myentery.pack(side = BOTTOM)
 		self.chattext = Text(self.root)
@@ -13,6 +14,8 @@ class Chat():
 		self.sendbutton = Button(self.root,text = "SEND" , command = self.pressed)
 		self.sendbutton.pack(side = RIGHT)
 		self.is_pressed = False
+
+		#for the main loop
 		thread = threading.Thread(target=self.mainloop)
 		thread.start()
 
