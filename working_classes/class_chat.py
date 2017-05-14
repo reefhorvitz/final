@@ -6,7 +6,7 @@ class Chat():
 
 	def __init__(self):
 		self.root = Tk()
-		self.root.attributes("-fullscreen", True)
+
 		self.root.bind("<Return>",self.pressed)
 
 		self.chattext = Text(self.root)
