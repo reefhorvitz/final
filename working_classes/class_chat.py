@@ -29,6 +29,7 @@ class Chat():
 			s.send(msg)
 			self.chattext.insert(END,"ME : "+msg)
 			self.is_pressed = False
+			self.myentery.delete()
 
 	def mainloop(self):
 		self.root.mainloop()
