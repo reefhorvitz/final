@@ -7,12 +7,17 @@ class Chat():
 	def __init__(self):
 		self.root = Tk()
 		self.root.attributes("-fullscreen", True)
-		self.myentery = Entry(self.root)
-		self.myentery.pack(side = BOTTOM)
+		self.root.bind("<Return>",self.pressed)
+
 		self.chattext = Text(self.root)
-		self.chattext.pack(side = TOP)
+		self.chattext.pack(side = RIGHT)
+
+		self.myentery = Entry(self.root)
+		self.myentery.pack(side = RIGHT)
+
 		self.sendbutton = Button(self.root,text = "SEND" , command = self.pressed)
 		self.sendbutton.pack(side = RIGHT)
+
 		self.is_pressed = False
 
 		#for the main loop
