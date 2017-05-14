@@ -23,16 +23,16 @@ class Chat():
 		while True:
 			data = s.recv(1024)
 			if data:
-				self.chattext.insert(END,"HIM : "+data)
+				self.chattext.insert(END,"HIM : "+data+"\n")
 
 	def send_msg(self,s):
 		while True:
 			if self.is_pressed:
 				msg = self.myentery.get()
 				s.send(msg)
-				self.chattext.insert(END,"ME : "+msg)
+				self.chattext.insert(END,"ME : "+msg+"\n")
 				self.is_pressed = False
-				self.myentery.delete()
+				self.myentery.delete(0,END)
 
 	def mainloop(self):
 		self.root.mainloop()
