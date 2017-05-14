@@ -8,8 +8,10 @@ class Chat():
 		self.myentery = Entry(self.root)
 		self.myentery.pack(side = BOTTOM)
 		self.chattext = Text(self.root)
+		self.chattext.pack(side = TOP)
 		self.sendbutton = Button(self.root,text = "SEND" , command = self.pressed)
 		self.is_pressed = False
+		self.root.mainloop()
 
 	def pressed(self):
 		self.is_pressed = True
