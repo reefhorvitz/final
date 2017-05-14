@@ -1,12 +1,16 @@
 import socket
 from Tkinter import *
 import threading
+from win32api import GetSystemMetrics
+
+WIDTH = GetSystemMetrics(0)
+HEIGHT = GetSystemMetrics(1)
 
 class Chat():
 
 	def __init__(self):
 		self.root = Tk()
-
+		self.root.geometry('%dx%d+%d+%d'%(WIDTH-600, HEIGHT, 600, 0))
 		self.root.bind("<Return>",self.pressed)
 
 		self.chattext = Text(self.root)

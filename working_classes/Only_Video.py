@@ -2,6 +2,10 @@ import cv2
 import time
 import numpy
 import sys
+from win32api import GetSystemMetrics
+
+WIDTH = GetSystemMetrics(0)
+HEIGHT = GetSystemMetrics(1)
 
 class Video:
 	def __init__(self):
@@ -16,7 +20,8 @@ class Video:
 			try:
 				ret, self.frame = self.capture.read()
 				cv2.imshow("Server_Self", self.frame)
-				cv2.moveWindow("Server_Self", -15, 528)
+				cv2.resizeWindow("Server_Self", 600, HEIGHT/2)
+				cv2.moveWindow("Server_Self", -15, HEIGHT/2)
 			except:
 				self.flag = True
 				return
@@ -60,7 +65,9 @@ class Video:
 				data = numpy.fromstring(stringData, dtype='uint8')
 				decimg = cv2.imdecode(data, 1)
 				cv2.imshow('Server_Other', decimg)
-				cv2.moveWindow("Server_Other", -15, -23)
+				# cv2.moveWindow("Server_Other", -15, -23)
+				cv2.resizeWindow("Server_Other", 600, HEIGHT/2)
+				cv2.moveWindow("Server_Other", -15, 0)
 			except:
 				self.flag = True
 				return
