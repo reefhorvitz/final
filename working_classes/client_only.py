@@ -14,7 +14,7 @@ def Sock_Connect():
 	PORT5 = 5005
 	PORT6 = 5006
 
-	IP = "192.168.30.29"
+	IP = "127.0.0.1"
 
 	s1 = socket.socket()
 	s2 = socket.socket()
@@ -46,7 +46,7 @@ def Exit(base,s1,s2,s3,s4,s5,s6):
 			sys.exit(0)
 		time.sleep(0.5)
 
-#varaibles for sock and functions
+#varaibles for sock and fun	ctions
 send_vid, recv_vid, send_aud, recv_aud, send_chat, recv_chat = Sock_Connect()
 base = Only_Video.Video()
 
