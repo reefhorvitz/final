@@ -2,12 +2,16 @@ import socket
 import select
 from twilio.rest import Client
 import random
+import pygeoip
+import threading
+
 class classclient:
     def __init__(self,ip):
         self.ip = ip
         self.rand = 0
         self.phonenum = 0
-
+        GEOIP = pygeoip.GeoIP("GeoLiteCity.dat", pygeoip.MEMORY_CACHE)
+        self.country = GEOIP.country_name_by_addr(self.ip)
 class MyServer:
     def __init__(self):
         PORT1 = 5004
@@ -15,7 +19,10 @@ class MyServer:
         self.s = socket.socket()
         self.s.bind((IP,PORT1))
         self.s.listen(10)
-        self.clientlist = {}
+        self.clientlist = {}    #dictionar keys-socket values-class client
+        self.donelist = {}
+        mycheckthread = threading.Thread(target=self.send_con)
+        mycheckthread.start()
         self.main_accept()
 
     def main_accept(self):
@@ -36,7 +43,8 @@ class MyServer:
                         self.SMS_Verification(current)
 
                     elif data.startswith("num-"):
-                        self.check_verification(current,data[5:])
+                        if self.check_verification(current,data[5:]):
+                            self.donelist[current] = self.clientlist[current]
                     else:
                         current.close()
                         self.clientlist.pop(current)
@@ -60,6 +68,16 @@ class MyServer:
             return True
         else:
             return False
+
+    def send_con(self):
+        while True:
+            for s1 in self.donelist.keys():
+                for s2 in self.donelist.keys():
+                    if s1 != s2 and self.donelist[s1].country == self.donelist[s2].country:
+                        s1.send("client-"+self.donelist[s2].ip)
+                        s2.send("server-"+self.donelist[s1].ip)
+                        self.donelist.pop(s1)
+                        self.donelist.pop(s2)
 
 
 serv = MyServer()
