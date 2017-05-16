@@ -16,13 +16,16 @@ class Chat():
 
         self.chattext = Text(self.root, font = 28)
         self.chattext.config(stat = DISABLED)
-        self.chattext.pack(side = RIGHT)
+        self.chattext.pack(fill = X)
+
+        frame = Frame(self.root,height = 20)
+        frame.pack()
 
         self.myentery = Entry(self.root)
-        self.myentery.pack(side = RIGHT)
+        self.myentery.pack(fill  = X)
 
         self.sendbutton = Button(self.root,text = "SEND" , command = self.pressed)
-        self.sendbutton.pack(side = RIGHT)
+        self.sendbutton.pack()
 
         self.is_pressed = False
 
