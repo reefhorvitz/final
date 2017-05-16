@@ -22,7 +22,7 @@ class main_frame:
         self.button.grid(row=2,columnspan = 2)
 
     def server_con(self,key = None):
-        ip = "127.0.0.1"
+        ip = "192.168.30.29"
         PORT =5004
         ADD = (ip,PORT)
         sock = socket.socket()
@@ -31,9 +31,10 @@ class main_frame:
         self.help_num(sock)
 
     def help_num(self,sock):
+        self.phoneentery.delete(0,END)
         self.namelabel['text'] = "Enter verification number :"
         self.button.configure(text = "Submit", command = lambda: self.num_ver(sock))
-        self.root.bind("<Return>",self.num_ver)
+        self.root.bind("<Return>", lambda a: self.num_ver(sock))
 
     def num_ver(self,sock, key = None):
         print "num_ver"
@@ -41,6 +42,9 @@ class main_frame:
         self.prog(sock)
 
     def prog(self,sock):
+        self.phoneentery.destroy()
+        self.namelabel['text'] = "PLEASE WAIT !!!"
+        self.button.destroy()
         while True:
             try:
                  data = sock.recv(1024)
@@ -54,7 +58,6 @@ class main_frame:
         else:
             process = subprocess.call(['python','server.py'], shell=True, stderr=subprocess.STDOUT,
                                        stdout=subprocess.PIPE)
-        print process.communicate()[0][:-2]
 root = Tk()
 mainroot = main_frame(root)
 root.mainloop()
