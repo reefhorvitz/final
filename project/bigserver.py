@@ -8,6 +8,8 @@ import smtplib
 
 class classclient:
     def __init__(self,ip):
+        if ip == "127.0.0.1":
+            ip == "192.168.30.29"
         self.ip = ip
         self.rand = random.randint(1000,9999)
         self.phonenum = 0
@@ -48,6 +50,7 @@ class MyServer:
                         self.send_email(current = current)
 
                     elif data.startswith("num-"):
+                        print data
                         if self.check_verification(current,data[4:]):
                             self.donelist[current] = self.clientlist[current]
                     else:
@@ -55,7 +58,9 @@ class MyServer:
                         self.clientlist.pop(current)
 
     def check_verification(self,current,result):
-        if self.clientlist[current].rand == result:
+        if str(self.clientlist[current].rand) == result:
+            print result
+            print "true"
             return True
         else:
             return False

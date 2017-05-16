@@ -36,11 +36,17 @@ class main_frame:
         self.root.bind("<Return>",self.num_ver)
 
     def num_ver(self,sock, key = None):
+        print "num_ver"
         sock.send("num-"+self.phoneentery.get())
         self.prog(sock)
 
     def prog(self,sock):
-        data = sock.recv(1024)
+        while True:
+            try:
+                 data = sock.recv(1024)
+                 break
+            except:
+                pass
         if data.startswith("client"):
             process = subprocess.call(['python','client.py', data[7:]], shell=True, stderr=subprocess.STDOUT,
                                        stdout=subprocess.PIPE)
