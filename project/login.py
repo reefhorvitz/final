@@ -51,13 +51,16 @@ class main_frame:
                  break
             except:
                 pass
-        if data.startswith("client"):
-            process = subprocess.call(['python','client.py', data[7:]], shell=True, stderr=subprocess.STDOUT,
-                                       stdout=subprocess.PIPE)
+        try:
+            if data.startswith("client"):
+                process = subprocess.call(['python','client.py', data[7:]], shell=True, stderr=subprocess.STDOUT,
+                                           stdout=subprocess.PIPE)
 
-        else:
-            process = subprocess.call(['python','server.py'], shell=True, stderr=subprocess.STDOUT,
-                                       stdout=subprocess.PIPE)
+            else:
+                process = subprocess.call(['python','server.py'], shell=True, stderr=subprocess.STDOUT,
+                                           stdout=subprocess.PIPE)
+        except:
+                print "Connection Lost"
 root = Tk()
 mainroot = main_frame(root)
 root.mainloop()
