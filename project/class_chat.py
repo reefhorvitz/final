@@ -13,7 +13,7 @@ class Chat():
 		self.root.geometry('%dx%d+%d+%d'%(WIDTH-600, HEIGHT, 600, 0))
 		self.root.bind("<Return>",self.pressed)
 
-		self.chattext = Text(self.root)
+		self.chattext = Text(self.root, font = 24)
 		self.chattext.pack(side = RIGHT)
 
 		self.myentery = Entry(self.root)
