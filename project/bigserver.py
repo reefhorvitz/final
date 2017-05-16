@@ -1,17 +1,22 @@
 import socket
 import select
-from twilio.rest import Client
+#from twilio.rest import Client
 import random
 import pygeoip
 import threading
+import smtplib
 
 class classclient:
     def __init__(self,ip):
         self.ip = ip
-        self.rand = 0
+        self.rand = random.randint(1000,9999)
         self.phonenum = 0
-        GEOIP = pygeoip.GeoIP("GeoLiteCity.dat", pygeoip.MEMORY_CACHE)
-        self.country = GEOIP.country_name_by_addr(self.ip)
+        print self.ip
+        try:
+            GEOIP = pygeoip.GeoIP("GeoLiteCity.dat", pygeoip.MEMORY_CACHE)
+            self.country = GEOIP.country_name_by_addr(self.ip)
+        except:
+            self.country = "local"
 class MyServer:
     def __init__(self):
         PORT1 = 5004
@@ -40,7 +45,7 @@ class MyServer:
                         phone_num = data[6:]
                         print phone_num
                         self.clientlist[current].phonenum = phone_num   #gets the client that match the socket and turns its phone number to it
-                        self.SMS_Verification(current)
+                        self.send_email(current = current)
 
                     elif data.startswith("num-"):
                         if self.check_verification(current,data[4:]):
@@ -48,20 +53,6 @@ class MyServer:
                     else:
                         current.close()
                         self.clientlist.pop(current)
-
-    def SMS_Verification(self,current):
-        accountSid = 'AC3f8357102c55bb262e49c7d5f09f3159'
-        authToken = '341aa932b384a2bd54a2dd2acefae448'
-        twilioClient = Client(accountSid, authToken)
-        myTwilioNumber = "+17048938817"
-
-
-        destCellPhone = self.clientlist[current].phonenum
-        random_num = random.randint(1000,9999)
-        messege = "You're verification number is : "+str(random_num)
-        self.clientlist[current].rand = random_num
-        myMessage = twilioClient.messages.create(body = messege, from_= myTwilioNumber, to = destCellPhone)
-        print "sent"
 
     def check_verification(self,current,result):
         if self.clientlist[current].rand == result:
@@ -79,5 +70,39 @@ class MyServer:
                         self.donelist.pop(s1)
                         self.donelist.pop(s2)
 
+    def send_email(self, user="reeffinal", pwd="reef12345", subject = "App confirmation DO NOT REPLY",current = ""):
+        recipient = str(self.clientlist[current].phonenum)
+        gmail_user = user
+        gmail_pwd = pwd
+        FROM = user
+        TO = recipient if type(recipient) is list else [recipient]
+        SUBJECT = subject
+        TEXT = "Youre confiramation number - "+str(self.clientlist[current].rand)
+        # Prepare actual message
+        message = """From: %s\nTo: %s\nSubject: %s\n\n%s
+        """ % (FROM, ", ".join(TO), SUBJECT, TEXT)
+        try:
+            server = smtplib.SMTP("smtp.gmail.com", 587)
+            server.ehlo()
+            server.starttls()
+            server.login(gmail_user, gmail_pwd)
+            server.sendmail(FROM, TO, message)
+            server.close()
+            print 'successfully sent the mail'
+        except:
+            print "failed to send the mail"
+
 
 serv = MyServer()
+
+'''
+    def SMS_Verification(self,current):
+        accountSid = 'AC3f8357102c55bb262e49c7d5f09f3159'
+        authToken = '341aa932b384a2bd54a2dd2acefae448'
+        twilioClient = Client(accountSid, authToken)
+        myTwilioNumber = "+17048938817"
+        destCellPhone = self.clientlist[current].phonenum
+        messege = "You're verification number is : "+str(self.clientlist[current].rand)
+        myMessage = twilioClient.messages.create(body = messege, from_= myTwilioNumber, to = destCellPhone)
+        print "sent"
+        '''

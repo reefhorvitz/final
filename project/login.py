@@ -13,7 +13,7 @@ class main_frame:
         logolab = Label(self.root, image=self.logo, bg=self.root["bg"])
         logolab.grid(columnspan = 2)
 
-        self.namelabel = Label(self.root,text = "Enter your full phone number:",font = 30,bg = self.root["bg"])
+        self.namelabel = Label(self.root,text = "Enter your Email :",font = 30,bg = self.root["bg"])
         self.namelabel.grid()
         self.phoneentery = Entry(self.root)
         self.phoneentery.grid(row = 1,column=1,sticky = W)
@@ -32,8 +32,9 @@ class main_frame:
 
     def help_num(self,sock):
         self.namelabel['text'] = "Enter verification number :"
-        self.button.configure(text = "Submit",command = self.num_ver)
+        self.button.configure(text = "Submit", command = lambda: self.num_ver(sock))
         self.root.bind("<Return>",self.num_ver)
+
     def num_ver(self,sock, key = None):
         sock.send("num-"+self.phoneentery.get())
         self.prog(sock)
