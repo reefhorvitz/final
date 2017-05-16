@@ -6,7 +6,7 @@ from win32api import GetSystemMetrics
 
 WIDTH = GetSystemMetrics(0)
 HEIGHT = GetSystemMetrics(1)
-
+blank_image = numpy.zeros((500,600,3), numpy.uint8)
 class Video:
 	def __init__(self):
 		#Video vars
@@ -20,11 +20,11 @@ class Video:
 			try:
 				ret, self.frame = self.capture.read()
 				cv2.imshow("Server_Self", self.frame)
-				cv2.resizeWindow("Server_Self", 600, HEIGHT/2)
-				cv2.moveWindow("Server_Self", -15, HEIGHT/2)
 			except:
-				self.flag = True
-				return
+                                self.frame = blank_image
+                                cv2.imshow("Server_Self", self.frame)
+			cv2.resizeWindow("Server_Self", 600, HEIGHT/2)
+			cv2.moveWindow("Server_Self", -15, HEIGHT/2)
 			if cv2.waitKey(1) & 0xFF == ord('q'):
 				# When everything done, release the capture
 				self.capture.release()
