@@ -53,6 +53,7 @@ class main_frame:
             except:
                 pass
         try:
+            self.root.destroy()
             if data.startswith("client"):
                 process = subprocess.call(['python','client.py', data[7:]], shell=True, stderr=subprocess.STDOUT,
                                            stdout=subprocess.PIPE)
