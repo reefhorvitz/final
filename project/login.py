@@ -22,7 +22,7 @@ class main_frame:
         self.button.grid(row=2,columnspan = 2)
 
     def server_con(self,key = None):
-        ip = "192.168.30.29"
+        ip = "10.0.0.21"
         PORT =5004
         ADD = (ip,PORT)
         sock = socket.socket()
@@ -48,6 +48,7 @@ class main_frame:
         while True:
             try:
                  data = sock.recv(1024)
+                 print data
                  break
             except:
                 pass
@@ -55,6 +56,7 @@ class main_frame:
             if data.startswith("client"):
                 process = subprocess.call(['python','client.py', data[7:]], shell=True, stderr=subprocess.STDOUT,
                                            stdout=subprocess.PIPE)
+                print "process started"
 
             else:
                 process = subprocess.call(['python','server.py'], shell=True, stderr=subprocess.STDOUT,

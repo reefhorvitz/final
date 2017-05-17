@@ -29,8 +29,8 @@ class Video:
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 # When everything done, release the capture
                 self.capture.release()
-                cv2.DestroyWindow("Server_Self")
-                cv2.DestroyWindow("Server_Other")
+                cv2.destroyWindow("Server_Self")
+                cv2.destroyWindow("Server_Other")
                 sock.close()
                 self.flag = True
                 os._exit(0)
@@ -75,8 +75,8 @@ class Video:
             cv2.moveWindow("Server_Other", -15, 0)
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 self.capture.release()
-                cv2.DestroyWindow("Server_Self")
-                cv2.DestroyWindow("Server_Other")
+                cv2.destroyWindow("Server_Self")
+                cv2.destroyWindow("Server_Other")
                 sock.close()
                 self.flag = True
                 os._exit(0)

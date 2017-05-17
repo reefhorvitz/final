@@ -16,7 +16,7 @@ def Sock_Connect():
 	try:
 		IP = sys.argv[1]
 	except:
-		IP = "127.0.0.1"
+		IP = "10.0.0.21"
 
 	s1 = socket.socket()
 	s2 = socket.socket()
