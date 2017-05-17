@@ -62,6 +62,8 @@ class Chat():
 
     def onexit(self, key = None):
         self.flag = True
+        self.root.destroy()
+        sys.exit(0)
 
     def mainloop(self):
         self.root.mainloop()
