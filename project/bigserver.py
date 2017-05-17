@@ -9,9 +9,10 @@ import smtplib
 class classclient:
     def __init__(self,ip):
         if ip == "127.0.0.1":
-            ip == "192.168.30.29"
+            ip == "10.0.0.21"
         self.ip = ip
         self.rand = random.randint(1000,9999)
+        print "his random is "+ str(self.rand)
         self.phonenum = 0
         print self.ip
         try:
@@ -42,7 +43,11 @@ class MyServer:
                     self.clientlist[newsock] = classclient(address[0]) #adds its values to dictionary
 
                 else:
-                    data = current.recv(1024)
+                    try:
+                        data = current.recv(1024)
+                    except:
+                        current.close()
+                        self.clientlist.pop(current)
                     if data.startswith("phone-"):
                         phone_num = data[6:]
                         print phone_num
@@ -70,6 +75,7 @@ class MyServer:
             for s1 in self.donelist.keys():
                 for s2 in self.donelist.keys():
                     if s1 != s2 and self.donelist[s1].country == self.donelist[s2].country:
+                        print "creates Chat!"
                         s1.send("client-"+self.donelist[s2].ip)
                         s2.send("server-"+self.donelist[s1].ip)
                         self.donelist.pop(s1)
