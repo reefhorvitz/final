@@ -10,9 +10,11 @@ class Chat():
 
     def __init__(self):
         self.root = Tk()
+        self.flag = False
         self.root.geometry('%dx%d+%d+%d'%(WIDTH/4, HEIGHT/2, 600, 0))
         self.root["bg"] = "#f2ea54"
         self.root.bind("<Return>",self.pressed)
+        self.root.protocol("WM_DELETE_WINDOW", self.onexit)
 
         lableimage = Label(self.root,text = "Chat Locate", font = "34")
         lableimage.pack()
@@ -57,6 +59,9 @@ class Chat():
                 self.chattext.config(stat=DISABLED)
                 self.is_pressed = False
                 self.myentery.delete(0,END)
+
+    def onexit(self, key = None):
+        self.flag = True
 
     def mainloop(self):
         self.root.mainloop()

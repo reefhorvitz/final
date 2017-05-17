@@ -33,9 +33,9 @@ def Sock_Connect():
 	return (s1, s2, s3, s4, s5, s6)
 
 
-def Exit(base,s1,s2,s3,s4,s5,s6):
+def Exit(base,chat,s1,s2,s3,s4,s5,s6):
 	while True:
-		if base.flag:
+		if base.flag or chat.flag:
 			#close sock
 			s1.close()
 			s2.close()
@@ -71,4 +71,4 @@ Recv_Aud_Thread.start()
 Send_Chat_Thread.start()
 Recv_Chat_Thread.start()
 
-Exit(base, send_aud, recv_aud, send_vid, recv_vid, send_chat, recv_chat)
+Exit(base, chat, send_aud, recv_aud, send_vid, recv_vid, send_chat, recv_chat)
