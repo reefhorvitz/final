@@ -22,7 +22,7 @@ class main_frame:
         self.button.grid(row=2,columnspan = 2)
 
     def server_con(self,key = None):
-        ip = "10.0.0.21"
+        ip = "10.0.0.18"
         PORT =5004
         ADD = (ip,PORT)
         sock = socket.socket()
@@ -37,14 +37,17 @@ class main_frame:
         self.root.bind("<Return>", lambda a: self.num_ver(sock))
 
     def num_ver(self,sock, key = None):
-        print "num_ver"
         sock.send("num-"+self.phoneentery.get())
         self.prog(sock)
 
     def prog(self,sock):
-        self.phoneentery.destroy()
+        self.root.unbind("<Return>")
+        self.phoneentery.pack_forget()
+        self.button.pack_forget()
         self.namelabel['text'] = "PLEASE WAIT !!!"
-        self.button.destroy()
+        self.Create_con(sock)
+
+    def Create_con(self,sock):
         while True:
             try:
                  data = sock.recv(1024)
