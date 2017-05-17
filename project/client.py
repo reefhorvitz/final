@@ -13,8 +13,10 @@ def Sock_Connect():
 	PORT4 = 5004
 	PORT5 = 5005
 	PORT6 = 5006
-
-	IP = "192.168.30.29"
+	try:
+		IP = sys.argv[1]
+	except:
+		IP = "127.0.0.1"
 
 	s1 = socket.socket()
 	s2 = socket.socket()
