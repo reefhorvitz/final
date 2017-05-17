@@ -1,1 +1,1 @@
-python %~dp0\login.py
+python %~dp0login.py

@@ -14,7 +14,7 @@ def Sock_Connect():
 	PORT5 = 5005
 	PORT6 = 5006
 
-	IP = sys.argv[1]
+	IP = "192.168.30.29"
 
 	s1 = socket.socket()
 	s2 = socket.socket()

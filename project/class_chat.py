@@ -10,9 +10,12 @@ class Chat():
 
     def __init__(self):
         self.root = Tk()
-        self.root.geometry('%dx%d+%d+%d'%(WIDTH-600, HEIGHT, 600, 0))
+        self.root.geometry('%dx%d+%d+%d'%(WIDTH/4, HEIGHT/2, 600, 0))
         self.root["bg"] = "#f2ea54"
         self.root.bind("<Return>",self.pressed)
+
+        lableimage = Label(self.root,text = "Chat Locate", font = "34")
+        lableimage.pack()
 
         self.chattext = Text(self.root, font = 28)
         self.chattext.config(stat = DISABLED)
