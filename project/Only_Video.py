@@ -4,7 +4,7 @@ import numpy
 import sys
 from win32api import GetSystemMetrics
 import thread
-
+import os
 
 WIDTH = GetSystemMetrics(0)
 HEIGHT = GetSystemMetrics(1)
@@ -15,7 +15,6 @@ class Video:
         self.frame = None
         self.capture = None
         self.flag = False
-
     def Get_Self_Img(self,sock):
         self.capture = cv2.VideoCapture(0)
         while 1:
@@ -25,6 +24,7 @@ class Video:
                 ret, self.frame = self.capture.read()
                 cv2.imshow("Server_Self", self.frame)
             except:
+                self.If_user_exit()
                 self.frame = blank_image
                 cv2.imshow("Server_Self", self.frame)
             cv2.resizeWindow("Server_Self", 600, HEIGHT/2)
@@ -71,6 +71,7 @@ class Video:
                 decimg = cv2.imdecode(data, 1)
                 cv2.imshow('Server_Other', decimg)
             except:
+                self.If_user_exit()
                 decimg = blank_image    #img blank
                 cv2.imshow('Server_Other', decimg)
             # cv2.moveWindow("Server_Other", -15, -23)
@@ -83,6 +84,4 @@ class Video:
         if self.flag:
             self.capture.release()
             cv2.destroyAllWindows()
-            thread.exit()
             sys.exit(0)
-

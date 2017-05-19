@@ -53,8 +53,8 @@ def Sock_Connect():
 def Exit(base,chat,aud,s1,s2,s3,s4,s5,s6):
     while True:
         if chat.flag:
-            base.flag = True
             aud.flag = True
+            base.flag = True
             #close sock
             s1.close()
             s2.close()
@@ -62,6 +62,7 @@ def Exit(base,chat,aud,s1,s2,s3,s4,s5,s6):
             s4.close()
             s5.close()
             s6.close()
+            print "pass"
             sys.exit(0)
         time.sleep(0.5)
 
@@ -72,7 +73,7 @@ if __name__ == "__main__":
     audio = sound_class.OnlyAudio()
 
     chat =  class_chat.Chat()
-
+    tlist = []
 
     Send_Vid_Thread = threading.Thread(target=base.Get_Self_Img, args=(send_vid,))
     Recv_Vid_Thread = threading.Thread(target=base.Recv_Data, args=(recv_vid,))
@@ -87,5 +88,4 @@ if __name__ == "__main__":
     Recv_Aud_Thread.start()
     Send_Chat_Thread.start()
     Recv_Chat_Thread.start()
-
     Exit(base, chat, audio, send_aud, recv_aud, send_vid, recv_vid, send_chat, recv_chat)
