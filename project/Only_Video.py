@@ -64,10 +64,10 @@ class Video:
             #if needed to be closed
             self.If_user_exit()
 
-            length = self.recvall(sock, 16)
-            stringData = self.recvall(sock, int(length))
-            data = numpy.fromstring(stringData, dtype='uint8')
             try:
+                length = self.recvall(sock, 16)
+                stringData = self.recvall(sock, int(length))
+                data = numpy.fromstring(stringData, dtype='uint8')
                 decimg = cv2.imdecode(data, 1)
                 cv2.imshow('Server_Other', decimg)
             except:

@@ -83,8 +83,8 @@ if __name__ == "__main__":
 
     Send_Vid_Thread.start()
     Recv_Vid_Thread.start()
-  #  Send_Aud_Thread.start()
-   # Recv_Aud_Thread.start()
+    Send_Aud_Thread.start()
+    Recv_Aud_Thread.start()
     Send_Chat_Thread.start()
     Recv_Chat_Thread.start()
 

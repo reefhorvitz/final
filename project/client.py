@@ -35,10 +35,11 @@ def Sock_Connect():
 	return (s1, s2, s3, s4, s5, s6)
 
 
-def Exit(base,chat,s1,s2,s3,s4,s5,s6):
+def Exit(base,chat,audio,s1,s2,s3,s4,s5,s6):
 	while True:
 		if chat.flag:
 			base.flag = True
+			audio.flag = True
 			#close sock
 			s1.close()
 			s2.close()
