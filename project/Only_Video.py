@@ -4,6 +4,7 @@ import numpy
 import sys
 from win32api import GetSystemMetrics
 import os
+from multiprocessing import Process
 
 WIDTH = GetSystemMetrics(0)
 HEIGHT = GetSystemMetrics(1)
@@ -14,6 +15,8 @@ class Video:
         self.frame = None
         self.capture = None
         self.flag = False
+        myproc = Process(target=self.If_user_exit)
+        myproc.start()
 
     def Get_Self_Img(self,sock):
         self.capture = cv2.VideoCapture(0)
@@ -27,27 +30,17 @@ class Video:
             cv2.resizeWindow("Server_Self", 600, HEIGHT/2)
             cv2.moveWindow("Server_Self", -15, HEIGHT/2)
             if cv2.waitKey(1) & 0xFF == ord('q'):
-                # When everything done, release the capture
-                self.capture.release()
-                cv2.destroyWindow("Server_Self")
-                cv2.destroyWindow("Server_Other")
-                sock.close()
-                self.flag = True
-                os._exit(0)
+               pass
             self.Send_Video(sock)
 
     def Send_Video(self, sock):
-        try:
-            encode_param = [int(cv2.IMWRITE_JPEG_QUALITY), 90]
-            result, imgencode = cv2.imencode('.jpg', self.frame, encode_param)
-            data = numpy.array(imgencode)
-            stringData = data.tostring()
-            sock.send(str(len(stringData)).ljust(16))
-            sock.send(stringData)
-            time.sleep(0.1)
-        except:
-            self.flag = True
-            return
+        encode_param = [int(cv2.IMWRITE_JPEG_QUALITY), 90]
+        result, imgencode = cv2.imencode('.jpg', self.frame, encode_param)
+        data = numpy.array(imgencode)
+        stringData = data.tostring()
+        sock.send(str(len(stringData)).ljust(16))
+        sock.send(stringData)
+        time.sleep(0.1)
 
     def recvall(self, sock, count):
         buf = b''
@@ -74,10 +67,13 @@ class Video:
             cv2.resizeWindow("Server_Other", 600, HEIGHT/2)
             cv2.moveWindow("Server_Other", -15, 0)
             if cv2.waitKey(1) & 0xFF == ord('q'):
+               pass
+
+
+    def If_user_exit(self):
+        while True:
+            if self.flag:
                 self.capture.release()
-                cv2.destroyWindow("Server_Self")
-                cv2.destroyWindow("Server_Other")
-                sock.close()
-                self.flag = True
-                os._exit(0)
+                cv2.destroyAllWindows()
+                sys.exit(0)
 

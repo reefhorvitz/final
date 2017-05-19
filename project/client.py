@@ -37,7 +37,8 @@ def Sock_Connect():
 
 def Exit(base,chat,s1,s2,s3,s4,s5,s6):
 	while True:
-		if base.flag or chat.flag:
+		if chat.flag:
+			base.flag = True
 			#close sock
 			s1.close()
 			s2.close()
@@ -46,7 +47,6 @@ def Exit(base,chat,s1,s2,s3,s4,s5,s6):
 			s5.close()
 			s6.close()
 			sys.exit(0)
-		time.sleep(0.5)
 
 #varaibles for sock and fun	ctions
 send_vid, recv_vid, send_aud, recv_aud, send_chat, recv_chat = Sock_Connect()

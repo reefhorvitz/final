@@ -53,7 +53,8 @@ def Sock_Connect():
 
 def Exit(base,chat,s1,s2,s3,s4,s5,s6):
 	while True:
-		if base.flag or chat.flag:
+		if chat.flag:
+			base.flag = True
 			#close sock
 			s1.close()
 			s2.close()
