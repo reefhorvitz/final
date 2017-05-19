@@ -3,6 +3,9 @@ import pyaudio
 import wave
 import thread
 
+import sys
+
+
 class OnlyAudio:
     def __init__(self):
         #record
@@ -36,7 +39,7 @@ class OnlyAudio:
 
     def Exit(self):
         if self.flag :
-            thread.exit()
+            thread.exit_thread()
 
     def Close(self):
             self.stream1.stop_stream()
