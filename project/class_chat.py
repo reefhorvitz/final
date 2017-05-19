@@ -1,8 +1,9 @@
+import os
 import socket
 from Tkinter import *
 import threading
 from win32api import GetSystemMetrics
-
+import thread
 WIDTH = GetSystemMetrics(0)
 HEIGHT = GetSystemMetrics(1)
 
@@ -42,8 +43,16 @@ class Chat():
         self.is_pressed = True
 
     def recv_msg(self,s):
+        self.s = s
         while True:
-            data = s.recv(1024)
+            try:
+                data = s.recv(1024)
+                if data == "#EXIT#":
+                    self.flag = True
+                    break
+            except:
+                self.flag = True
+                break
             if data:
                 self.chattext.config(stat=NORMAL)
                 self.chattext.insert(END,"HIM : "+data+"\n")
@@ -53,7 +62,6 @@ class Chat():
         while True:
             if self.is_pressed:
                 msg = self.myentery.get()
-                s.send(msg)
                 self.chattext.config(stat=NORMAL)
                 self.chattext.insert(END,"ME : "+msg+"\n")
                 self.chattext.config(stat=DISABLED)
@@ -61,8 +69,10 @@ class Chat():
                 self.myentery.delete(0,END)
 
     def onexit(self, key = None):
+        self.s.send("#EXIT#")
         self.flag = True
         self.root.destroy()
+        thread.exit()
         sys.exit(0)
 
     def mainloop(self):

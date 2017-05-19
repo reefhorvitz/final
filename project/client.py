@@ -48,29 +48,30 @@ def Exit(base,chat,s1,s2,s3,s4,s5,s6):
 			s6.close()
 			sys.exit(0)
 
-#varaibles for sock and fun	ctions
-send_vid, recv_vid, send_aud, recv_aud, send_chat, recv_chat = Sock_Connect()
-base = Only_Video.Video()
+if __name__ == "__main__":
+    #varaibles for sock and fun	ctions
+    send_vid, recv_vid, send_aud, recv_aud, send_chat, recv_chat = Sock_Connect()
+    base = Only_Video.Video()
 
-audio = sound_class.OnlyAudio(send_aud)
-audio2 = sound_class.OnlyAudio(recv_aud)
-chat =  class_chat.Chat()
+    audio = sound_class.OnlyAudio()
 
-
-
-Send_Vid_Thread = threading.Thread(target=base.Get_Self_Img,args=(send_vid,))
-Recv_Vid_Thread = threading.Thread(target=base.Recv_Data,args=(recv_vid,))
-Send_Aud_Thread = threading.Thread(target=audio.Send_Sound)
-Recv_Aud_Thread = threading.Thread(target=audio2.Get_Sound)
-Send_Chat_Thread = threading.Thread(target=chat.send_msg, args=(send_chat,))
-Recv_Chat_Thread = threading.Thread(target=chat.recv_msg, args=(recv_chat,))
+    chat =  class_chat.Chat()
 
 
-Send_Vid_Thread.start()
-Recv_Vid_Thread.start()
-Send_Aud_Thread.start()
-Recv_Aud_Thread.start()
-Send_Chat_Thread.start()
-Recv_Chat_Thread.start()
 
-Exit(base, chat, send_aud, recv_aud, send_vid, recv_vid, send_chat, recv_chat)
+    Send_Vid_Thread = threading.Thread(target=base.Get_Self_Img,args=(send_vid,))
+    Recv_Vid_Thread = threading.Thread(target=base.Recv_Data,args=(recv_vid,))
+    Send_Aud_Thread = threading.Thread(target=audio.Send_Sound, args=(send_aud,))
+    Recv_Aud_Thread = threading.Thread(target=audio.Get_Sound, args=(recv_aud,))
+    Send_Chat_Thread = threading.Thread(target=chat.send_msg, args=(send_chat,))
+    Recv_Chat_Thread = threading.Thread(target=chat.recv_msg, args=(recv_chat,))
+
+
+    Send_Vid_Thread.start()
+    Recv_Vid_Thread.start()
+    Send_Aud_Thread.start()
+    Recv_Aud_Thread.start()
+    Send_Chat_Thread.start()
+    Recv_Chat_Thread.start()
+
+    Exit(base, chat, audio, send_aud, recv_aud, send_vid, recv_vid, send_chat, recv_chat)
