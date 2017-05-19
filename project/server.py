@@ -54,7 +54,9 @@ def Exit(base,chat,aud,s1,s2,s3,s4,s5,s6):
     while True:
         if chat.flag:
             aud.flag = True
+            aud.Close()
             base.flag = True
+            base.Close()
             #close sock
             s1.close()
             s2.close()

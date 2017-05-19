@@ -82,6 +82,8 @@ class Video:
 
     def If_user_exit(self):
         if self.flag:
+            thread.exit()
+
+    def Close(self):
             self.capture.release()
             cv2.destroyAllWindows()
-            sys.exit(0)

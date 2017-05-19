@@ -73,7 +73,6 @@ class Chat():
         self.flag = True
         self.root.destroy()
         thread.exit()
-        sys.exit(0)
 
     def mainloop(self):
         self.root.mainloop()

@@ -35,19 +35,23 @@ def Sock_Connect():
 	return (s1, s2, s3, s4, s5, s6)
 
 
-def Exit(base,chat,audio,s1,s2,s3,s4,s5,s6):
-	while True:
-		if chat.flag:
-			base.flag = True
-			audio.flag = True
-			#close sock
-			s1.close()
-			s2.close()
-			s3.close()
-			s4.close()
-			s5.close()
-			s6.close()
-			sys.exit(0)
+def Exit(base,chat,aud,s1,s2,s3,s4,s5,s6):
+    while True:
+        if chat.flag:
+            aud.flag = True
+            aud.Close()
+            base.flag = True
+            base.Close()
+            #close sock
+            s1.close()
+            s2.close()
+            s3.close()
+            s4.close()
+            s5.close()
+            s6.close()
+            print "pass"
+            sys.exit(0)
+        time.sleep(0.5)
 
 if __name__ == "__main__":
     #varaibles for sock and fun	ctions

@@ -14,7 +14,6 @@ class OnlyAudio:
         self.WIDTH = 2
         self.p = pyaudio.PyAudio()
         self.flag = False
-        self.second = False
 
     def Send_Sound(self,s):
         try:
@@ -36,13 +35,15 @@ class OnlyAudio:
 
 
     def Exit(self):
-        if self.flag and not self.second:
+        if self.flag :
+            thread.exit()
+
+    def Close(self):
             self.stream1.stop_stream()
             self.stream1.close()
             self.stream2.stop_stream()
             self.stream2.close()
             self.p.terminate()
-            self.second = True
 
     def Get_Sound(self,s):
         try:
