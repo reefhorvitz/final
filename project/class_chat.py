@@ -43,7 +43,6 @@ class Chat():
         self.is_pressed = True
 
     def recv_msg(self,s):
-        self.s = s
         while True:
             if self.flag:
                 self.onexit()
@@ -55,17 +54,22 @@ class Chat():
             except:
                 self.flag = True
                 break
-            if data:
+            if data :
                 self.chattext.config(stat=NORMAL)
                 self.chattext.insert(END,"HIM : "+data+"\n")
                 self.chattext.config(stat=DISABLED)
+            else:
+                self.flag = True
+                self.onexit()
 
     def send_msg(self,s):
+        self.s = s
         while True:
             if self.flag:
-                thread.exit()
+                self.onexit()
             if self.is_pressed:
                 msg = self.myentery.get()
+                s.send(msg)
                 self.chattext.config(stat=NORMAL)
                 self.chattext.insert(END,"ME : "+msg+"\n")
                 self.chattext.config(stat=DISABLED)
@@ -75,10 +79,10 @@ class Chat():
     def onexit(self, key = None):
         try:
             self.s.send("#EXIT#")
+            self.flag = True
+            self.root.destroy()
         except:
             pass
-        self.flag = True
-        self.root.destroy()
         thread.exit()
 
     def mainloop(self):
