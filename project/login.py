@@ -24,7 +24,10 @@ class main_frame:
         self.flag = False
 
     def server_con(self,key = None):
-        ip = "10.0.0.21"
+        try:
+            ip = sys.argv[1]
+        except:
+            ip = "10.0.0.21"
         PORT =5004
         ADD = (ip,PORT)
         self.sock = socket.socket()

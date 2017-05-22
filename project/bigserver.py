@@ -9,7 +9,7 @@ import smtplib
 class classclient:
     def __init__(self,ip):
         if ip == "127.0.0.1":
-            ip == "10.0.0.21"
+            ip == socket.gethostbyname(socket.gethostname())
         self.ip = ip
         self.rand = random.randint(1000,9999)
         print "his random is "+ str(self.rand)
