@@ -85,7 +85,7 @@ class Chat():
         thread.exit()
 
     def Close(self):
-        self.root.destroy()
+        self.root.quit()
 
     def mainloop(self):
        self.root.mainloop()
