@@ -80,10 +80,12 @@ class Chat():
         try:
             self.s.send("#EXIT#")
             self.flag = True
-            self.root.destroy()
         except:
             pass
         thread.exit()
+
+    def Close(self):
+        self.root.destroy()
 
     def mainloop(self):
        self.root.mainloop()

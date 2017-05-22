@@ -27,7 +27,7 @@ class main_frame:
         try:
             ip = sys.argv[1]
         except:
-            ip = "10.0.0.21"
+            ip = "10.0.0.3"
         PORT =5004
         ADD = (ip,PORT)
         self.sock = socket.socket()
